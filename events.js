@@ -15,7 +15,7 @@ const events = [
             "Сундук с артефактами"
         ],
         "скриншоты": [
-            "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
+            https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/seedream-5.0-pro_a_Расположить_персонаж.jpeg
             "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
         ]
     },
