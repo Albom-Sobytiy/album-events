@@ -21,7 +21,6 @@
         <!-- Карточки будут созданы из встроенных данных -->
     </main>
 
-    <!-- Модальное окно -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -30,7 +29,6 @@
     </div>
 
     <script>
-        // Данные событий прямо здесь
         const events = [
             {
                 "id": 1,
@@ -47,9 +45,8 @@
                     "Легендарный меч",
                     "Сундук с артефактами"
                 ],
-            "скриншоты": [
-    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/Дизайн%20без%20названия%20(1)Канва.png"
-],
+                "скриншоты": [
+                    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/Дизайн%20без%20названия%20(1)Канва.png"
                 ]
             },
             {
@@ -73,7 +70,6 @@
             }
         ];
 
-        // Всё остальное — логика сайта
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('cards-container');
             const modal = document.getElementById('modal');
