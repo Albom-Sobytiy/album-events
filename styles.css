@@ -67,10 +67,13 @@ h1 {
 }
 
 .card img {
-    width: 100%;
+    width: 90%;
     height: 160px;
     object-fit: cover;
-    background: #dde4f0;
+    display: block;
+    margin: 5% auto 0;
+    border-radius: 12px;
+}
 }
 
 .card-content {
