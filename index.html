@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Альбом событий</title>
-    <!-- Подключаем красивый шрифт Playfair Display -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -85,14 +84,17 @@
         }
 
         .card-content {
-            padding: 16px 16px 18px;
+            padding: 20px 16px 22px;
+            min-height: 100px;
             background: #d4edda;
             color: #1a2a4a;
             border-radius: 0 0 16px 16px;
             margin-top: -2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        /* Красивый шрифт для названия события */
         .card-content h3 {
             font-family: 'Playfair Display', serif;
             font-size: 22px;
@@ -109,16 +111,14 @@
             padding: 2px 10px;
             border-radius: 12px;
             font-weight: bold;
+            align-self: flex-start;
         }
 
-        /* Дату скрываем для первого события, но для второго оставляем */
         .card-content .date {
             font-size: 13px;
             color: #3a5a4a;
             margin-top: 6px;
         }
-
-        /* Если нужно скрыть дату у конкретного события — это будет сделано в данных, а не в CSS */
 
         .modal {
             display: none;
@@ -217,7 +217,7 @@
                 "id": 1,
                 "название": "Лига Авантюристов",
                 "тип": "на время",
-                "дата": "", // дата пустая, не будет отображаться
+                "дата": "",
                 "этапы": [
                     "Уничтожить 5 вражеских отрядов",
                     "Победить босса в пещере",
@@ -267,7 +267,6 @@
                 filtered.forEach(event => {
                     const card = document.createElement('div');
                     card.className = 'card';
-                    // Если дата пустая, не показываем её
                     let dateHtml = event.дата ? `<div class="date">${event.дата}</div>` : '';
                     card.innerHTML = `
                         <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
