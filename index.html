@@ -18,10 +18,10 @@
     </header>
 
     <main id="cards-container">
-        <!-- Карточки будут созданы из events.js -->
+        <!-- Карточки будут созданы из встроенных данных -->
     </main>
 
-    <!-- Модальное окно для детального просмотра -->
+    <!-- Модальное окно -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -29,7 +29,109 @@
         </div>
     </div>
 
-    <script src="events.js"></script>
-    <script src="script.js"></script>
+    <script>
+        // Данные событий прямо здесь
+        const events = [
+            {
+                "id": 1,
+                "название": "Вторжение Тьмы",
+                "тип": "на время",
+                "дата": "10–17 августа 2026",
+                "этапы": [
+                    "Уничтожить 5 вражеских отрядов",
+                    "Победить босса в пещере",
+                    "Защитить крепость"
+                ],
+                "призы": [
+                    "1000 золота",
+                    "Легендарный меч",
+                    "Сундук с артефактами"
+                ],
+                "скриншоты": [
+                    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/seedream-5.0-pro_a_Расположить_персонаж.jpeg"
+                ]
+            },
+            {
+                "id": 2,
+                "название": "Охота на дракона",
+                "тип": "на материалы",
+                "дата": "5–12 сентября 2026",
+                "этапы": [
+                    "Собрать 10 чешуй",
+                    "Найти логово",
+                    "Убить дракона"
+                ],
+                "призы": [
+                    "Драконья броня",
+                    "500 опыта",
+                    "Золотой слиток"
+                ],
+                "скриншоты": [
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Дракон"
+                ]
+            }
+        ];
+
+        // Всё остальное — логика сайта
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('cards-container');
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeBtn = document.querySelector('.close-btn');
+
+            let currentEvents = [...events];
+
+            function renderCards(filterType = 'all') {
+                container.innerHTML = '';
+                const filtered = filterType === 'all' ? currentEvents : currentEvents.filter(e => e.тип === filterType);
+                filtered.forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
+                        <div class="card-content">
+                            <h3>${event.название}</h3>
+                            <span class="type">${event.тип}</span>
+                            <div class="date">${event.дата}</div>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => openModal(event));
+                    container.appendChild(card);
+                });
+            }
+
+            function openModal(event) {
+                let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
+                let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
+                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('');
+
+                modalBody.innerHTML = `
+                    <h2>${event.название}</h2>
+                    <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
+                    <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
+                    <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
+                    <div class="gallery">${galleryHtml}</div>
+                `;
+                modal.style.display = 'block';
+            }
+
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderCards(this.dataset.type);
+                });
+            });
+
+            renderCards('all');
+        });
+    </script>
 </body>
 </html>
