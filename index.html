@@ -72,19 +72,19 @@
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
         }
 
-        .card img {
+        /* Пустой блок вместо картинки — такие же размеры и отступы */
+        .card .image-placeholder {
             width: 96%;
             height: 220px;
-            object-fit: cover;
+            background: #e9ecef;
             display: block;
             margin: 2% auto 0;
             border-radius: 14px 14px 0 0;
-            background: #dde4f0;
         }
 
         .card-content {
             padding: 16px 16px 18px;
-            background: #d4edda; /* мягкий нежно-зелёный */
+            background: #d4edda; /* нежно-зелёный */
             color: #1a2a4a;
             border-radius: 0 0 16px 16px;
             margin-top: -2px;
@@ -220,9 +220,7 @@
                     "Легендарный меч",
                     "Сундук с артефактами"
                 ],
-                "скриншоты": [
-                    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/Дизайн%20без%20названия%20(1)Канва.png"
-                ]
+                "скриншоты": [] // пусто, чтобы не отображалась картинка
             },
             {
                 "id": 2,
@@ -259,8 +257,17 @@
                 filtered.forEach(event => {
                     const card = document.createElement('div');
                     card.className = 'card';
+
+                    // Если есть скриншот — показываем картинку, иначе — пустой блок
+                    let imageHtml = '';
+                    if (event.скриншоты && event.скриншоты.length > 0) {
+                        imageHtml = `<img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">`;
+                    } else {
+                        imageHtml = `<div class="image-placeholder"></div>`;
+                    }
+
                     card.innerHTML = `
-                        <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
+                        ${imageHtml}
                         <div class="card-content">
                             <h3>${event.название}</h3>
                             <span class="type">${event.тип}</span>
@@ -275,7 +282,9 @@
             function openModal(event) {
                 let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
                 let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
-                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('');
+                let galleryHtml = (event.скриншоты && event.скриншоты.length > 0) 
+                    ? event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('')
+                    : '<p>Нет скриншотов</p>';
 
                 modalBody.innerHTML = `
                     <h2>${event.название}</h2>
