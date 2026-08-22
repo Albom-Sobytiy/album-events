@@ -74,10 +74,9 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Обёртка фото — нежно-зелёный фон, отступ 5px */
         .card-img-wrapper {
-            background: #d4edda;
-            padding: 5px; /* увеличенный отступ */
+            background: #d4edda; /* нежно-зелёный */
+            padding: 5px;
             background-clip: padding-box;
         }
 
@@ -95,19 +94,21 @@
             background: white;
         }
 
+        /* Название — крупное, жирное */
         .card-content h3 {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 900;
             color: #1a2a4a;
             margin-bottom: 0;
             letter-spacing: 0.5px;
             font-family: 'Segoe UI', 'Arial Black', 'Helvetica Neue', sans-serif;
-            line-height: 1.2;
+            line-height: 1.1;
         }
 
+        /* «на время» — слева, но внутри овала центрировано */
         .type-wrapper {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start; /* прижимаем к левому краю */
             margin-top: 4px;
         }
 
@@ -119,7 +120,7 @@
             padding: 2px 16px;
             border-radius: 16px;
             font-weight: 700;
-            text-align: center;
+            text-align: center; /* центрируем текст внутри овала */
         }
 
         .modal {
