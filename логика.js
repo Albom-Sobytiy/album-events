@@ -26,15 +26,20 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function openModal(event) {
-        let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
-        let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
-        let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('');
+        let stagesHtml = event.этапы.map((stage, i) => `
+            <li>
+                <strong>${stage.название}</strong><br>
+                <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')">
+                <br>Очки: ${stage.очки}
+            </li>
+        `).join('');
+
+        let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'" style="max-width: 100%; cursor: pointer;" onclick="window.open('${src}', '_blank')">`).join('');
 
         modalBody.innerHTML = `
             <h2>${event.название}</h2>
             <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
-            <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
-            <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
+            <div class="stages"><strong>Награды:</strong><ul>${stagesHtml}</ul></div>
             <div class="gallery">${galleryHtml}</div>
         `;
         modal.style.display = 'block';
