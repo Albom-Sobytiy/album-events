@@ -74,9 +74,8 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Каёмка (отступ) — теперь золотистая */
         .card-img-wrapper {
-            background: #d4af37; /* золотистый */
+            background: #d4af37;
             padding: 3px;
             background-clip: padding-box;
         }
@@ -87,7 +86,7 @@
             height: 160px;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
-            background: #d4edda; /* если фото не загрузится */
+            background: #d4edda;
         }
 
         .card-content {
@@ -157,30 +156,48 @@
             color: #1a2a4a;
         }
 
-        #modal-body h2 {
-            color: #1a2a4a;
-            margin-bottom: 10px;
-            font-weight: 800;
+        #modal-body {
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        #modal-body .meta {
-            color: #6a7a8a;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-
-        .gallery {
+        #modal-body .modal-title-row {
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 10px;
-            margin-top: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 6px;
         }
 
-        .gallery img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
+        #modal-body .modal-title-row h2 {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1a2a4a;
+            margin: 0;
+        }
+
+        #modal-body .modal-boss-btn {
+            background: #d4af37;
+            color: #1a2a4a;
+            border: none;
+            padding: 2px 16px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 700;
             cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        #modal-body .modal-boss-btn:hover {
+            background: #c5a02e;
+        }
+
+        #modal-body .modal-type {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1a2a4a;
+            margin-top: 0;
         }
     </style>
 </head>
@@ -210,16 +227,6 @@
                 "id": 1,
                 "название": "Лига Авантюристов",
                 "тип": "на время",
-                "этапы": [
-                    "Этап 1",
-                    "Этап 2",
-                    "Этап 3"
-                ],
-                "призы": [
-                    "Приз 1",
-                    "Приз 2",
-                    "Приз 3"
-                ],
                 "скриншоты": [
                     "Лига Авантюр 6667.png"
                 ]
@@ -257,16 +264,12 @@
             }
 
             function openModal(event) {
-                let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
-                let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
-                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onclick="window.open('${src}', '_blank')" onerror="this.style.display='none'">`).join('');
-
                 modalBody.innerHTML = `
-                    <h2>${event.название}</h2>
-                    <div class="meta">Тип: ${event.тип}</div>
-                    <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
-                    <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
-                    <div class="gallery">${galleryHtml}</div>
+                    <div class="modal-title-row">
+                        <h2>${event.название}</h2>
+                        <button class="modal-boss-btn" onclick="alert('БОССЫ')">БОССЫ</button>
+                    </div>
+                    <div class="modal-type">${event.тип}</div>
                 `;
                 modal.style.display = 'block';
             }
