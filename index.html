@@ -74,10 +74,9 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Заглушка фото с отступами и закруглением */
         .card-img-wrapper {
             padding: 3px;
-            background: #dde4f0; /* цвет подложки под фото */
+            background: #d4edda; /* нежно-зелёный */
         }
 
         .card-img-wrapper img {
@@ -85,8 +84,8 @@
             width: 100%;
             height: 160px;
             object-fit: cover;
-            border-radius: 10px 10px 0 0; /* закругление только сверху */
-            background: #c0c8d8; /* цвет, если фото не загрузится */
+            border-radius: 10px 10px 0 0;
+            background: #c0c8d8;
         }
 
         .card-content {
@@ -102,14 +101,6 @@
             font-family: 'Segoe UI', 'Arial Black', sans-serif;
         }
 
-        .type-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-
         .type {
             display: inline-block;
             background: #d4af37;
@@ -120,58 +111,6 @@
             font-weight: 700;
         }
 
-        .boss-btn {
-            background: #8b1a2b;
-            color: white;
-            border: none;
-            padding: 4px 14px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 12px;
-            transition: 0.2s;
-        }
-
-        .boss-btn:hover {
-            background: #a02030;
-        }
-
-        .rewards {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .reward-block {
-            background: #f8faff;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #dde4f0;
-            text-align: center;
-        }
-
-        .reward-block strong {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .reward-block img {
-            max-width: 120px;
-            height: auto;
-            display: block;
-            margin: 6px auto;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .reward-block span {
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -260,12 +199,18 @@
                 "название": "Лига Авантюристов",
                 "тип": "на время",
                 "этапы": [
-                    { "название": "Новичок", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/novichok.jpg", "очки": "100" },
-                    { "название": "Опытный", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/opytny.jpg", "очки": "200" },
-                    { "название": "Мастер", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/master.jpg", "очки": "300" }
+                    "Этап 1",
+                    "Этап 2",
+                    "Этап 3"
+                ],
+                "призы": [
+                    "Приз 1",
+                    "Приз 2",
+                    "Приз 3"
                 ],
                 "скриншоты": [
-                    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/seedream-5.0-pro_a_Расположить_персонаж.jpeg"
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
                 ]
             }
         ];
@@ -290,19 +235,7 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <div class="type-wrapper">
-                                <span class="type">${event.тип}</span>
-                                <button class="boss-btn" onclick="event.stopPropagation(); alert('БОССЫ')">БОССЫ</button>
-                            </div>
-                            <div class="rewards">
-                                ${event.этапы.map(stage => `
-                                    <div class="reward-block">
-                                        <strong>${stage.название}</strong>
-                                        <img src="${stage.фото}" alt="${stage.название}" onclick="event.stopPropagation(); window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
-                                        <span>Очки: ${stage.очки}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
+                            <span class="type">${event.тип}</span>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
@@ -311,20 +244,15 @@
             }
 
             function openModal(event) {
-                let stagesHtml = event.этапы.map(stage => `
-                    <li>
-                        <strong>${stage.название}</strong><br>
-                        <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
-                        <br>Очки: ${stage.очки}
-                    </li>
-                `).join('');
-
+                let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
+                let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
                 let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onclick="window.open('${src}', '_blank')" onerror="this.style.display='none'">`).join('');
 
                 modalBody.innerHTML = `
                     <h2>${event.название}</h2>
                     <div class="meta">Тип: ${event.тип}</div>
-                    <div class="stages"><strong>Награды:</strong><ul>${stagesHtml}</ul></div>
+                    <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
+                    <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
                     <div class="gallery">${galleryHtml}</div>
                 `;
                 modal.style.display = 'block';
