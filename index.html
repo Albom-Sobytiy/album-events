@@ -74,9 +74,10 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
+        /* Зелёный фон под фото */
         .card-img-wrapper {
-            padding: 3px;
             background: #d4edda; /* нежно-зелёный */
+            padding: 3px; /* белый отступ */
         }
 
         .card-img-wrapper img {
@@ -101,14 +102,23 @@
             font-family: 'Segoe UI', 'Arial Black', sans-serif;
         }
 
+        /* Золотистая вставка с центровкой */
+        .type-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 6px;
+        }
+
         .type {
             display: inline-block;
             background: #d4af37;
             color: #1a2a4a;
-            font-size: 12px;
-            padding: 2px 12px;
-            border-radius: 12px;
+            font-size: 13px;
+            padding: 4px 18px;
+            border-radius: 20px;
             font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.5px;
         }
 
         .modal {
@@ -235,7 +245,9 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <span class="type">${event.тип}</span>
+                            <div class="type-wrapper">
+                                <span class="type">${event.тип}</span>
+                            </div>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
