@@ -4,182 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Альбом событий</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background: #f0f4fa;
-            padding: 20px;
-        }
-        header {
-            max-width: 1200px;
-            margin: 0 auto 30px;
-        }
-        h1 {
-            color: #1a2a4a;
-            font-size: 28px;
-            margin-bottom: 15px;
-        }
-        .filters {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .filter-btn {
-            background: #e0e6f0;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #1a2a4a;
-            transition: all 0.2s;
-        }
-        .filter-btn.active {
-            background: #1a2a4a;
-            color: white;
-        }
-        #cards-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            background: #dde4f0;
-        }
-        .card-content {
-            padding: 15px;
-        }
-        .card-content h3 {
-            color: #1a2a4a;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        .type-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 5px 0;
-        }
-        .type {
-            display: inline-block;
-            background: #d4af37;
-            color: #1a2a4a;
-            font-size: 12px;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-weight: bold;
-        }
-        .boss-btn {
-            background: #8b1a2b;
-            color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .date {
-            color: #6a7a8a;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-        .rewards {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .reward-block {
-            background: #f8faff;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #dde4f0;
-            text-align: center;
-        }
-        .reward-block img {
-            margin: 8px auto;
-            border-radius: 6px;
-            max-width: 120px;
-            height: auto;
-            display: block;
-            cursor: pointer;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            overflow-y: auto;
-        }
-        .modal-content {
-            background: white;
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 30px;
-            border-radius: 16px;
-            position: relative;
-        }
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            font-size: 28px;
-            cursor: pointer;
-            color: #aaa;
-        }
-        .close-btn:hover {
-            color: #1a2a4a;
-        }
-        #modal-body h2 {
-            color: #1a2a4a;
-            margin-bottom: 10px;
-        }
-        #modal-body .meta {
-            color: #6a7a8a;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .gallery img {
-            max-width: 100%;
-            max-height: 200px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
@@ -192,7 +17,9 @@
         </div>
     </header>
 
-    <main id="cards-container"></main>
+    <main id="cards-container">
+        <!-- Карточки будут созданы из данных -->
+    </main>
 
     <div id="modal" class="modal">
         <div class="modal-content">
@@ -202,15 +29,29 @@
     </div>
 
     <script>
+        // Данные событий (здесь только одно событие — «Лига Авантюристов»)
         const events = [
             {
                 "id": 1,
                 "название": "Лига Авантюристов",
                 "тип": "на время",
+                "дата": "10–17 августа 2026",
                 "этапы": [
-                    { "название": "Новичок", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/novichok.jpg", "очки": "100" },
-                    { "название": "Опытный", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/opytny.jpg", "очки": "200" },
-                    { "название": "Мастер", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/master.jpg", "очки": "300" }
+                    {
+                        "название": "Новичок",
+                        "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/novichok.jpg",
+                        "очки": "100"
+                    },
+                    {
+                        "название": "Опытный",
+                        "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/opytny.jpg",
+                        "очки": "200"
+                    },
+                    {
+                        "название": "Мастер",
+                        "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/master.jpg",
+                        "очки": "300"
+                    }
                 ],
                 "скриншоты": [
                     "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/seedream-5.0-pro_a_Расположить_персонаж.jpeg"
@@ -236,19 +77,8 @@
                         <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <div class="type-wrapper">
-                                <span class="type">${event.тип}</span>
-                                <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button>
-                            </div>
-                            <div class="rewards">
-                                ${event.этапы.map(stage => `
-                                    <div class="reward-block">
-                                        <strong>${stage.название}</strong>
-                                        <img src="${stage.фото}" alt="${stage.название}" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
-                                        <span>Очки: ${stage.очки}</span>
-                                    </div>
-                                `).join('')}
-                            </div>
+                            <span class="type">${event.тип} <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button></span>
+                            <div class="date">${event.дата}</div>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
@@ -257,19 +87,20 @@
             }
 
             function openModal(event) {
-                let stagesHtml = event.этапы.map(stage => `
+                // Отображение этапов (блоков наград)
+                let stagesHtml = event.этапы.map((stage, i) => `
                     <li>
                         <strong>${stage.название}</strong><br>
-                        <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
+                        <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')">
                         <br>Очки: ${stage.очки}
                     </li>
                 `).join('');
 
-                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onclick="window.open('${src}', '_blank')" onerror="this.style.display='none'">`).join('');
+                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'" style="max-width: 100%; cursor: pointer;" onclick="window.open('${src}', '_blank')">`).join('');
 
                 modalBody.innerHTML = `
                     <h2>${event.название}</h2>
-                    <div class="meta">Тип: ${event.тип}</div>
+                    <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
                     <div class="stages"><strong>Награды:</strong><ul>${stagesHtml}</ul></div>
                     <div class="gallery">${galleryHtml}</div>
                 `;
