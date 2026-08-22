@@ -74,47 +74,55 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* ОБЁРТКА: нежно-зелёный фон под фото */
+        /* Обёртка фото — нежно-зелёный фон, белый отступ */
         .card-img-wrapper {
             background: #d4edda; /* нежно-зелёный */
-            padding: 3px; /* это белый отступ (сам padding белый) */
+            padding: 3px; /* отступ */
+            background-clip: padding-box; /* чтобы цвет не выходил за padding */
         }
 
-        /* САМО ФОТО внутри обёртки */
+        /* Само фото */
         .card-img-wrapper img {
             display: block;
             width: 100%;
             height: 160px;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
-            background: #c0c8d8;
-            /* если фото не загрузится — покажется этот цвет */
+            background: #c0c8d8; /* если фото не загрузится */
         }
 
         .card-content {
-            padding: 15px 15px 10px 15px; /* немного уменьшил снизу */
+            padding: 15px 15px 10px 15px;
+            background: white; /* белый фон под текстом */
         }
 
-        /* НАЗВАНИЕ — крупное, жирное, красивое */
+        /* НАЗВАНИЕ — очень жирное, крупное, поднято выше */
         .card-content h3 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 900;
             color: #1a2a4a;
-            margin-bottom: 2px;
+            margin-bottom: 0; /* убрал отступ снизу */
             letter-spacing: 0.5px;
             font-family: 'Segoe UI', 'Arial Black', 'Helvetica Neue', sans-serif;
+            line-height: 1.2;
         }
 
-        /* «на время» — слева, как было */
+        /* «на время» — по центру золотистого овала */
+        .type-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-top: 4px; /* небольшой отступ сверху */
+        }
+
         .type {
             display: inline-block;
             background: #d4af37;
             color: #1a2a4a;
             font-size: 13px;
-            padding: 2px 14px;
+            padding: 2px 16px;
             border-radius: 16px;
             font-weight: 700;
-            margin-top: 2px;
+            text-align: center;
         }
 
         /* Модальное окно — без изменений */
@@ -242,7 +250,9 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <span class="type">${event.тип}</span>
+                            <div class="type-wrapper">
+                                <span class="type">${event.тип}</span>
+                            </div>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
