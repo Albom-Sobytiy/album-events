@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
                 <div class="card-content">
                     <h3>${event.название}</h3>
-                    <span class="type">${event.тип}</span>
+                    <span class="type">${событие.тип} <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button></span>
                     <div class="date">${event.дата}</div>
                 </div>
             `;
