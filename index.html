@@ -74,12 +74,13 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Зелёный фон под фото */
+        /* ОБЁРТКА: нежно-зелёный фон под фото */
         .card-img-wrapper {
             background: #d4edda; /* нежно-зелёный */
-            padding: 3px; /* белый отступ */
+            padding: 3px; /* это белый отступ (сам padding белый) */
         }
 
+        /* САМО ФОТО внутри обёртки */
         .card-img-wrapper img {
             display: block;
             width: 100%;
@@ -87,40 +88,36 @@
             object-fit: cover;
             border-radius: 10px 10px 0 0;
             background: #c0c8d8;
+            /* если фото не загрузится — покажется этот цвет */
         }
 
         .card-content {
-            padding: 15px;
+            padding: 15px 15px 10px 15px; /* немного уменьшил снизу */
         }
 
+        /* НАЗВАНИЕ — крупное, жирное, красивое */
         .card-content h3 {
-            font-size: 20px;
-            font-weight: 800;
+            font-size: 22px;
+            font-weight: 900;
             color: #1a2a4a;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-            font-family: 'Segoe UI', 'Arial Black', sans-serif;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+            font-family: 'Segoe UI', 'Arial Black', 'Helvetica Neue', sans-serif;
         }
 
-        /* Золотистая вставка с центровкой */
-        .type-wrapper {
-            display: flex;
-            justify-content: center;
-            margin-top: 6px;
-        }
-
+        /* «на время» — слева, как было */
         .type {
             display: inline-block;
             background: #d4af37;
             color: #1a2a4a;
             font-size: 13px;
-            padding: 4px 18px;
-            border-radius: 20px;
+            padding: 2px 14px;
+            border-radius: 16px;
             font-weight: 700;
-            text-align: center;
-            letter-spacing: 0.5px;
+            margin-top: 2px;
         }
 
+        /* Модальное окно — без изменений */
         .modal {
             display: none;
             position: fixed;
@@ -245,9 +242,7 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <div class="type-wrapper">
-                                <span class="type">${event.тип}</span>
-                            </div>
+                            <span class="type">${event.тип}</span>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
