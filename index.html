@@ -74,8 +74,9 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
+        /* Подложка под фото — белая, отступ 5px */
         .card-img-wrapper {
-            background: #d4edda;
+            background: #ffffff; /* белый */
             padding: 5px;
             background-clip: padding-box;
         }
@@ -90,13 +91,13 @@
         }
 
         .card-content {
-            padding: 15px 15px 10px 15px;
+            padding: 10px 15px 10px 15px; /* отступ сверху 10px = 1 см */
             background: white;
         }
 
-        /* Название — теперь 32px, максимальная жирность */
+        /* Название — 32px, жирное, в одну строку */
         .card-content h3 {
-            font-size: 32px;           /* было 28px */
+            font-size: 32px;
             font-weight: 900;
             color: #1a2a4a;
             margin-bottom: 0;
@@ -105,10 +106,10 @@
             line-height: 1.1;
         }
 
-        /* «на время» — прижато к левому краю */
+        /* «на время» — слева, внутри овала центрировано */
         .type-wrapper {
             display: flex;
-            justify-content: flex-start; /* прижимаем влево */
+            justify-content: flex-start;
             margin-top: 4px;
         }
 
@@ -120,7 +121,7 @@
             padding: 2px 16px;
             border-radius: 16px;
             font-weight: 700;
-            text-align: center; /* внутри овала текст по центру */
+            text-align: center;
         }
 
         .modal {
