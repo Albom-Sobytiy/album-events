@@ -9,26 +9,32 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
         }
+
         body {
             background: #f0f4fa;
             padding: 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
+
         header {
             max-width: 1200px;
             margin: 0 auto 30px;
         }
+
         h1 {
             color: #1a2a4a;
             font-size: 28px;
             margin-bottom: 15px;
+            font-weight: 700;
         }
+
         .filters {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
         }
+
         .filter-btn {
             background: #e0e6f0;
             border: none;
@@ -37,12 +43,15 @@
             cursor: pointer;
             font-size: 14px;
             color: #1a2a4a;
-            transition: all 0.2s;
+            transition: 0.2s;
+            font-weight: 500;
         }
+
         .filter-btn.active {
             background: #1a2a4a;
             color: white;
         }
+
         #cards-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -50,46 +59,119 @@
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
+
         .card {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             overflow: hidden;
-            cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
         }
+
         .card:hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
-        .card img {
+
+        /* Заглушка фото с отступами и закруглением */
+        .card-img-wrapper {
+            padding: 3px;
+            background: #dde4f0; /* цвет подложки под фото */
+        }
+
+        .card-img-wrapper img {
+            display: block;
             width: 100%;
             height: 160px;
             object-fit: cover;
-            background: #dde4f0;
+            border-radius: 10px 10px 0 0; /* закругление только сверху */
+            background: #c0c8d8; /* цвет, если фото не загрузится */
         }
+
         .card-content {
             padding: 15px;
         }
+
         .card-content h3 {
+            font-size: 20px;
+            font-weight: 800;
             color: #1a2a4a;
-            font-size: 18px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+            font-family: 'Segoe UI', 'Arial Black', sans-serif;
         }
-        .card-content .type {
+
+        .type-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .type {
             display: inline-block;
             background: #d4af37;
             color: #1a2a4a;
             font-size: 12px;
-            padding: 2px 10px;
+            padding: 2px 12px;
             border-radius: 12px;
-            font-weight: bold;
+            font-weight: 700;
         }
-        .card-content .date {
-            color: #6a7a8a;
+
+        .boss-btn {
+            background: #8b1a2b;
+            color: white;
+            border: none;
+            padding: 4px 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.2s;
+        }
+
+        .boss-btn:hover {
+            background: #a02030;
+        }
+
+        .rewards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .reward-block {
+            background: #f8faff;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #dde4f0;
+            text-align: center;
+        }
+
+        .reward-block strong {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .reward-block img {
+            max-width: 120px;
+            height: auto;
+            display: block;
+            margin: 6px auto;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .reward-block span {
             font-size: 13px;
-            margin-top: 5px;
+            font-weight: 500;
         }
+
+        /* Модальное окно */
         .modal {
             display: none;
             position: fixed;
@@ -101,6 +183,7 @@
             background: rgba(0,0,0,0.5);
             overflow-y: auto;
         }
+
         .modal-content {
             background: white;
             max-width: 700px;
@@ -109,6 +192,7 @@
             border-radius: 16px;
             position: relative;
         }
+
         .close-btn {
             position: absolute;
             right: 20px;
@@ -117,31 +201,30 @@
             cursor: pointer;
             color: #aaa;
         }
+
         .close-btn:hover {
             color: #1a2a4a;
         }
+
         #modal-body h2 {
             color: #1a2a4a;
             margin-bottom: 10px;
+            font-weight: 800;
         }
+
         #modal-body .meta {
             color: #6a7a8a;
             font-size: 14px;
             margin-bottom: 15px;
         }
-        #modal-body .stages, #modal-body .rewards {
-            margin: 15px 0;
-        }
-        #modal-body .stages li, #modal-body .rewards li {
-            margin-left: 20px;
-            margin-bottom: 5px;
-        }
+
         .gallery {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 15px;
         }
+
         .gallery img {
             max-width: 100%;
             max-height: 200px;
@@ -174,42 +257,15 @@
         const events = [
             {
                 "id": 1,
-                "название": "Вторжение Тьмы",
+                "название": "Лига Авантюристов",
                 "тип": "на время",
-                "дата": "10–17 августа 2026",
                 "этапы": [
-                    "Уничтожить 5 вражеских отрядов",
-                    "Победить босса в пещере",
-                    "Защитить крепость"
-                ],
-                "призы": [
-                    "1000 золота",
-                    "Легендарный меч",
-                    "Сундук с артефактами"
+                    { "название": "Новичок", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/novichok.jpg", "очки": "100" },
+                    { "название": "Опытный", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/opytny.jpg", "очки": "200" },
+                    { "название": "Мастер", "фото": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/master.jpg", "очки": "300" }
                 ],
                 "скриншоты": [
-                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
-                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
-                ]
-            },
-            {
-                "id": 2,
-                "название": "Охота на дракона",
-                "тип": "на материалы",
-                "дата": "5–12 сентября 2026",
-                "этапы": [
-                    "Собрать 10 чешуй",
-                    "Найти логово",
-                    "Убить дракона"
-                ],
-                "призы": [
-                    "Драконья броня",
-                    "500 опыта",
-                    "Золотой слиток"
-                ],
-                "скриншоты": [
-                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
-                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
+                    "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/seedream-5.0-pro_a_Расположить_персонаж.jpeg"
                 ]
             }
         ];
@@ -229,11 +285,24 @@
                     const card = document.createElement('div');
                     card.className = 'card';
                     card.innerHTML = `
-                        <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
+                        <div class="card-img-wrapper">
+                            <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
+                        </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <span class="type">${event.тип}</span>
-                            <div class="date">${event.дата}</div>
+                            <div class="type-wrapper">
+                                <span class="type">${event.тип}</span>
+                                <button class="boss-btn" onclick="event.stopPropagation(); alert('БОССЫ')">БОССЫ</button>
+                            </div>
+                            <div class="rewards">
+                                ${event.этапы.map(stage => `
+                                    <div class="reward-block">
+                                        <strong>${stage.название}</strong>
+                                        <img src="${stage.фото}" alt="${stage.название}" onclick="event.stopPropagation(); window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
+                                        <span>Очки: ${stage.очки}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
@@ -242,15 +311,20 @@
             }
 
             function openModal(event) {
-                let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
-                let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
-                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('');
+                let stagesHtml = event.этапы.map(stage => `
+                    <li>
+                        <strong>${stage.название}</strong><br>
+                        <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
+                        <br>Очки: ${stage.очки}
+                    </li>
+                `).join('');
+
+                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onclick="window.open('${src}', '_blank')" onerror="this.style.display='none'">`).join('');
 
                 modalBody.innerHTML = `
                     <h2>${event.название}</h2>
-                    <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
-                    <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
-                    <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
+                    <div class="meta">Тип: ${event.тип}</div>
+                    <div class="stages"><strong>Награды:</strong><ul>${stagesHtml}</ul></div>
                     <div class="gallery">${galleryHtml}</div>
                 `;
                 modal.style.display = 'block';
