@@ -74,44 +74,41 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Обёртка фото — нежно-зелёный фон, белый отступ */
+        /* Обёртка фото — нежно-зелёный фон, отступ 5px */
         .card-img-wrapper {
-            background: #d4edda; /* нежно-зелёный */
-            padding: 3px; /* отступ */
-            background-clip: padding-box; /* чтобы цвет не выходил за padding */
+            background: #d4edda;
+            padding: 5px; /* увеличенный отступ */
+            background-clip: padding-box;
         }
 
-        /* Само фото */
         .card-img-wrapper img {
             display: block;
             width: 100%;
             height: 160px;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
-            background: #c0c8d8; /* если фото не загрузится */
+            background: #c0c8d8;
         }
 
         .card-content {
             padding: 15px 15px 10px 15px;
-            background: white; /* белый фон под текстом */
+            background: white;
         }
 
-        /* НАЗВАНИЕ — очень жирное, крупное, поднято выше */
         .card-content h3 {
             font-size: 24px;
             font-weight: 900;
             color: #1a2a4a;
-            margin-bottom: 0; /* убрал отступ снизу */
+            margin-bottom: 0;
             letter-spacing: 0.5px;
             font-family: 'Segoe UI', 'Arial Black', 'Helvetica Neue', sans-serif;
             line-height: 1.2;
         }
 
-        /* «на время» — по центру золотистого овала */
         .type-wrapper {
             display: flex;
             justify-content: center;
-            margin-top: 4px; /* небольшой отступ сверху */
+            margin-top: 4px;
         }
 
         .type {
@@ -125,7 +122,6 @@
             text-align: center;
         }
 
-        /* Модальное окно — без изменений */
         .modal {
             display: none;
             position: fixed;
