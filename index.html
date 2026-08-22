@@ -4,7 +4,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Альбом событий</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: #f0f4fa;
+            padding: 20px;
+        }
+        header {
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+        h1 {
+            color: #1a2a4a;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: #e0e6f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #1a2a4a;
+            transition: all 0.2s;
+        }
+        .filter-btn.active {
+            background: #1a2a4a;
+            color: white;
+        }
+        #cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            background: #dde4f0;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-content h3 {
+            color: #1a2a4a;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .card-content .type {
+            display: inline-block;
+            background: #d4af37;
+            color: #1a2a4a;
+            font-size: 12px;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+        .card-content .date {
+            color: #6a7a8a;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            overflow-y: auto;
+        }
+        .modal-content {
+            background: white;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 16px;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close-btn:hover {
+            color: #1a2a4a;
+        }
+        #modal-body h2 {
+            color: #1a2a4a;
+            margin-bottom: 10px;
+        }
+        #modal-body .meta {
+            color: #6a7a8a;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        #modal-body .stages, #modal-body .rewards {
+            margin: 15px 0;
+        }
+        #modal-body .stages li, #modal-body .rewards li {
+            margin-left: 20px;
+            margin-bottom: 5px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .gallery img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -17,11 +161,8 @@
         </div>
     </header>
 
-    <main id="cards-container">
-        <!-- Карточки будут созданы из events.js -->
-    </main>
+    <main id="cards-container"></main>
 
-    <!-- Модальное окно для детального просмотра -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -29,7 +170,109 @@
         </div>
     </div>
 
-    <script src="events.js"></script>
-    <script src="script.js"></script>
+    <script>
+        const events = [
+            {
+                "id": 1,
+                "название": "Вторжение Тьмы",
+                "тип": "на время",
+                "дата": "10–17 августа 2026",
+                "этапы": [
+                    "Уничтожить 5 вражеских отрядов",
+                    "Победить босса в пещере",
+                    "Защитить крепость"
+                ],
+                "призы": [
+                    "1000 золота",
+                    "Легендарный меч",
+                    "Сундук с артефактами"
+                ],
+                "скриншоты": [
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
+                ]
+            },
+            {
+                "id": 2,
+                "название": "Охота на дракона",
+                "тип": "на материалы",
+                "дата": "5–12 сентября 2026",
+                "этапы": [
+                    "Собрать 10 чешуй",
+                    "Найти логово",
+                    "Убить дракона"
+                ],
+                "призы": [
+                    "Драконья броня",
+                    "500 опыта",
+                    "Золотой слиток"
+                ],
+                "скриншоты": [
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+1",
+                    "https://via.placeholder.com/600x400/1a2a4a/d4af37?text=Скрин+2"
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('cards-container');
+            const modal = document.getElementById('modal');
+            const modalBody = document.getElementById('modal-body');
+            const closeBtn = document.querySelector('.close-btn');
+
+            let currentEvents = [...events];
+
+            function renderCards(filterType = 'all') {
+                container.innerHTML = '';
+                const filtered = filterType === 'all' ? currentEvents : currentEvents.filter(e => e.тип === filterType);
+                filtered.forEach(event => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
+                        <div class="card-content">
+                            <h3>${event.название}</h3>
+                            <span class="type">${event.тип}</span>
+                            <div class="date">${event.дата}</div>
+                        </div>
+                    `;
+                    card.addEventListener('click', () => openModal(event));
+                    container.appendChild(card);
+                });
+            }
+
+            function openModal(event) {
+                let stagesHtml = event.этапы.map((stage, i) => `<li>${i+1}. ${stage}</li>`).join('');
+                let rewardsHtml = event.призы.map(prize => `<li>${prize}</li>`).join('');
+                let galleryHtml = event.скриншоты.map(src => `<img src="${src}" alt="скрин" onerror="this.style.display='none'">`).join('');
+
+                modalBody.innerHTML = `
+                    <h2>${event.название}</h2>
+                    <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
+                    <div class="stages"><strong>Этапы:</strong><ul>${stagesHtml}</ul></div>
+                    <div class="rewards"><strong>Призы:</strong><ul>${rewardsHtml}</ul></div>
+                    <div class="gallery">${galleryHtml}</div>
+                `;
+                modal.style.display = 'block';
+            }
+
+            function closeModal() {
+                modal.style.display = 'none';
+            }
+
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    renderCards(this.dataset.type);
+                });
+            });
+
+            renderCards('all');
+        });
+    </script>
 </body>
 </html>
