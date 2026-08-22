@@ -16,8 +16,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
                 <div class="card-content">
                     <h3>${event.название}</h3>
-                    <span class="type">${event.тип} <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button></span>
-                    <div class="date">${event.дата}</div>
+                    <div class="type-wrapper">
+                        <span class="type">${event.тип}</span>
+                        <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button>
+                    </div>
+                    <div class="rewards">
+                        ${event.этапы.map(stage => `
+                            <div class="reward-block">
+                                <strong>${stage.название}</strong>
+                                <img src="${stage.фото}" alt="${stage.название}" style="max-width: 120px; height: auto; display: block; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
+                                <span>Очки: ${stage.очки}</span>
+                            </div>
+                        `).join('')}
+                    </div>
                 </div>
             `;
             card.addEventListener('click', () => openModal(event));
@@ -29,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let stagesHtml = event.этапы.map((stage, i) => `
             <li>
                 <strong>${stage.название}</strong><br>
-                <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')">
+                <img src="${stage.фото}" alt="${stage.название}" style="max-width: 150px; height: auto; cursor: pointer;" onclick="window.open('${stage.фото}', '_blank')" onerror="this.style.display='none'">
                 <br>Очки: ${stage.очки}
             </li>
         `).join('');
@@ -38,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         modalBody.innerHTML = `
             <h2>${event.название}</h2>
-            <div class="meta">Тип: ${event.тип} | Дата: ${event.дата}</div>
+            <div class="meta">Тип: ${event.тип}</div>
             <div class="stages"><strong>Награды:</strong><ul>${stagesHtml}</ul></div>
             <div class="gallery">${galleryHtml}</div>
         `;
