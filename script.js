@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
                 <div class="card-content">
                     <h3>${event.название}</h3>
-                    <span class="type">${событие.тип} <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button></span>
+                    <span class="type">${event.тип} <button class="boss-btn" onclick="alert('БОССЫ')">БОССЫ</button></span>
                     <div class="date">${event.дата}</div>
                 </div>
             `;
@@ -47,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function() {
     closeBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-    // Фильтры
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
