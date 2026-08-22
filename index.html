@@ -74,10 +74,10 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
 
-        /* Отступ (края) — нежно-зелёный, подложка под фото — белая */
+        /* 1. Уменьшил белые края отступа до 3px */
         .card-img-wrapper {
-            background: #d4edda; /* цвет краёв */
-            padding: 8px;
+            background: #ffffff; /* белый отступ */
+            padding: 3px;
             background-clip: padding-box;
         }
 
@@ -87,12 +87,13 @@
             height: 160px;
             object-fit: cover;
             border-radius: 10px 10px 0 0;
-            background: #ffffff; /* подложка под фото — белая */
+            background: #d4edda; /* фото-заглушка нежно-зелёная */
         }
 
+        /* 2. Вся область под фото стала нежно-зелёной */
         .card-content {
             padding: 10px 15px 10px 15px;
-            background: white;
+            background: #d4edda; /* нежно-зелёный фон под текстом */
         }
 
         .card-content h3 {
