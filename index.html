@@ -158,7 +158,6 @@
             background: #c5a02e;
         }
 
-        /* Модальное окно — с фоновым изображением */
         .modal {
             display: none;
             position: fixed;
@@ -167,7 +166,7 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.4);
             overflow-y: auto;
         }
 
@@ -176,14 +175,12 @@
             background-image: url('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/%D0%9B%D0%B8%D0%B3%D0%B0%20%D0%90%D0%B2%20%D1%84%D0%BE%D0%BD.png');
             background-size: cover;
             background-position: center;
-            background-blend-mode: overlay;
             max-width: 700px;
             margin: 40px auto;
             padding: 30px;
             border-radius: 16px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            backdrop-filter: blur(2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
 
         .close-btn {
@@ -193,7 +190,7 @@
             font-size: 28px;
             cursor: pointer;
             color: #1a2a4a;
-            background: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.8);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -227,7 +224,6 @@
             font-weight: 900;
             color: #1a2a4a;
             margin: 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
 
         .modal-boss-btn {
@@ -254,21 +250,19 @@
             font-weight: 500;
             color: #1a2a4a;
             margin-top: 0;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
 
         .modal-divider {
             border: none;
-            border-top: 2px solid rgba(212, 175, 55, 0.6);
+            border-top: 2px solid rgba(212, 175, 55, 0.5);
             margin: 15px 0 20px 0;
         }
 
         .reward-block {
             margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.75);
+            background: rgba(255, 255, 255, 0.8);
             padding: 12px;
             border-radius: 12px;
-            backdrop-filter: blur(1px);
         }
 
         .reward-block h3 {
