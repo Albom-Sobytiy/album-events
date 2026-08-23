@@ -103,18 +103,20 @@
         }
 
         .card-img-wrapper {
-            background: #d4af37;
+            background: #d4af37; /* золотая каёмка */
             padding: 3px;
             background-clip: padding-box;
+            aspect-ratio: 600 / 400; /* точные пропорции 600x400 */
+            width: 100%;
         }
 
         .card-img-wrapper img {
             display: block;
             width: 100%;
-            height: 160px;
-            object-fit: cover;
+            height: 100%;
+            object-fit: cover; /* если фото 600х400 — заполнит ровно */
             border-radius: 10px 10px 0 0;
-            background: #d4edda;
+            background: #d4edda; /* заливка, если фото не загрузится */
         }
 
         .card-content {
@@ -405,7 +407,6 @@
             }
         ];
 
-        // Глобальная функция для открытия модалки с наградами по id события
         function openModalById(eventId) {
             const event = events.find(e => e.id === eventId);
             if (!event) return;
@@ -437,7 +438,6 @@
             modal.style.display = 'block';
         }
 
-        // Закрытие модалки наград
         function closeModal() {
             document.getElementById('modal').style.display = 'none';
         }
@@ -480,7 +480,6 @@
                 });
             });
 
-            // Обработчики закрытия
             closeBtn.addEventListener('click', closeModal);
             window.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
 
