@@ -20,19 +20,48 @@
         header {
             max-width: 1200px;
             margin: 0 auto 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         h1 {
             color: #1a2a4a;
             font-size: 28px;
-            margin-bottom: 15px;
             font-weight: 700;
+            margin: 0;
+        }
+
+        .header-btn {
+            background: #d4af37;
+            color: #1a2a4a;
+            border: none;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .header-btn:hover {
+            background: #c5a02e;
         }
 
         .filters {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .filter-btn {
@@ -107,7 +136,9 @@
 
         .type-wrapper {
             display: flex;
-            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
             margin-top: 4px;
         }
 
@@ -127,6 +158,23 @@
 
         .type span {
             transform: translateY(-3px);
+        }
+
+        .card-graph-btn {
+            background: #1a2a4a;
+            color: white;
+            border: none;
+            padding: 2px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .card-graph-btn:hover {
+            background: #2a3a5a;
         }
 
         .modal {
@@ -294,7 +342,10 @@
 </head>
 <body>
     <header>
-        <h1>📖 Альбом событий</h1>
+        <div class="header-left">
+            <h1>📖 Альбом событий</h1>
+            <button class="header-btn" onclick="openImageModal('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/kalendar.jpg')">Календарь событий</button>
+        </div>
         <div class="filters">
             <button class="filter-btn active" data-type="all">Все</button>
             <button class="filter-btn" data-type="на время">На время</button>
@@ -365,7 +416,8 @@
                             "master4.jpg"
                         ]
                     }
-                ]
+                ],
+                "график": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/grafika.jpg"
             }
         ];
 
@@ -393,6 +445,7 @@
                             <h3>${event.название}</h3>
                             <div class="type-wrapper">
                                 <span class="type"><span>${event.тип}</span></span>
+                                ${event.график ? `<button class="card-graph-btn" onclick="event.stopPropagation(); openImageModal('${event.график}')">График события</button>` : ''}
                             </div>
                         </div>
                     `;
