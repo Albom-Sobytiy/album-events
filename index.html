@@ -207,51 +207,6 @@
             color: #1a2a4a;
             margin-top: 0;
         }
-
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 2000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            overflow: auto;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-modal-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
-            margin: auto;
-        }
-
-        .image-modal-content img {
-            display: block;
-            max-width: 100%;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .image-modal .close-img-btn {
-            position: absolute;
-            top: -40px;
-            right: -10px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            background: none;
-            border: none;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
-        }
-
-        .image-modal .close-img-btn:hover {
-            color: #ccc;
-        }
     </style>
 </head>
 <body>
@@ -274,33 +229,23 @@
         </div>
     </div>
 
-    <div id="image-modal" class="image-modal">
-        <div class="image-modal-content">
-            <button class="close-img-btn">&times;</button>
-            <img id="image-modal-img" src="" alt="Боссы">
-        </div>
-    </div>
-
     <script>
-        // Глобальные функции для работы с модалкой изображений
-        function openImageModal(src) {
-            document.getElementById('image-modal-img').src = src;
-            document.getElementById('image-modal').style.display = 'flex';
-        }
+        const events = [
+            {
+                "id": 1,
+                "название": "Лига Авантюристов",
+                "тип": "на время",
+                "скриншоты": [
+                    "Лига Авантюр 6667.png"
+                ]
+            }
+        ];
 
-        function closeImageModal() {
-            document.getElementById('image-modal').style.display = 'none';
-            document.getElementById('image-modal-img').src = '';
-        }
-
-        // Основной код
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('cards-container');
             const modal = document.getElementById('modal');
             const modalBody = document.getElementById('modal-body');
             const closeBtn = document.querySelector('.close-btn');
-            const closeImgBtn = document.querySelector('.close-img-btn');
-            const imageModal = document.getElementById('image-modal');
 
             let currentEvents = [...events];
 
@@ -330,7 +275,7 @@
                 modalBody.innerHTML = `
                     <div class="modal-title-row">
                         <h2>${event.название}</h2>
-                        <button class="modal-boss-btn" onclick="openImageModal('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg')">БОССЫ</button>
+                        <button class="modal-boss-btn" onclick="window.open('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg', '_blank')">БОССЫ</button>
                     </div>
                     <div class="modal-type">${event.тип}</div>
                 `;
@@ -343,9 +288,6 @@
 
             closeBtn.addEventListener('click', closeModal);
             window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-            closeImgBtn.addEventListener('click', closeImageModal);
-            window.addEventListener('click', (e) => { if (e.target === imageModal) closeImageModal(); });
 
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
