@@ -95,7 +95,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
+            /* убираем cursor: pointer, так как карточка больше не кликабельна */
         }
 
         .card:hover {
@@ -139,7 +139,7 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 4px;
+            margin-top: 12px; /* кнопки опущены ниже */
         }
 
         .card-btn {
@@ -434,7 +434,8 @@
                             </div>
                         </div>
                     `;
-                    card.addEventListener('click', () => openModal(event));
+                    // Убираем обработчик клика на карточку
+                    // card.addEventListener('click', () => openModal(event));
                     container.appendChild(card);
                 });
             }
