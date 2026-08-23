@@ -125,7 +125,6 @@
             min-width: 70px;
         }
 
-        /* Надпись внутри овала — поднимаем на 3px вверх */
         .type span {
             transform: translateY(-3px);
         }
@@ -183,18 +182,20 @@
             margin: 0;
         }
 
+        /* Кнопка БОССЫ внутри модального окна — увеличена и опущена */
         #modal-body .modal-boss-btn {
             background: #d4af37;
             color: #1a2a4a;
             border: none;
-            padding: 2px 16px;
-            border-radius: 16px;
-            font-size: 13px;
+            padding: 4px 20px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 700;
             cursor: pointer;
             text-align: center;
             white-space: nowrap;
             transition: 0.2s;
+            transform: translateY(1px);
         }
 
         #modal-body .modal-boss-btn:hover {
