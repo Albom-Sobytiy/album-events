@@ -208,7 +208,6 @@
             margin-top: 0;
         }
 
-        /* Разделительная линия */
         .modal-divider {
             border: none;
             border-top: 2px solid #d4af37;
@@ -216,7 +215,6 @@
             opacity: 0.6;
         }
 
-        /* Блоки наград */
         .reward-block {
             margin-bottom: 20px;
         }
@@ -235,8 +233,8 @@
         }
 
         .reward-images img {
-            width: 100px;
-            height: 100px;
+            width: 75px;      /* уменьшил размер */
+            height: 75px;
             object-fit: cover;
             border-radius: 8px;
             cursor: pointer;
@@ -248,7 +246,6 @@
             transform: scale(1.05);
         }
 
-        /* Модальное окно для изображений */
         .image-modal {
             display: none;
             position: fixed;
@@ -323,7 +320,6 @@
     </div>
 
     <script>
-        // Глобальные функции для модалки изображений
         function openImageModal(src) {
             document.getElementById('image-modal-img').src = src;
             document.getElementById('image-modal').style.display = 'flex';
@@ -344,7 +340,7 @@
                 ],
                 "награды": [
                     {
-                        "название": "Новичок",
+                        "название": "НОВИЧОК",
                         "фото": [
                             "Л А новичок - 1.jpg",
                             "Л А новичок - 2.jpg",
@@ -352,7 +348,7 @@
                         ]
                     },
                     {
-                        "название": "Опытный",
+                        "название": "ОПЫТНЫЙ",
                         "фото": [
                             "Л А опытный - 1.jpg",
                             "Л А опытный - 2.jpg",
@@ -361,7 +357,7 @@
                         ]
                     },
                     {
-                        "название": "Мастер",
+                        "название": "МАСТЕР",
                         "фото": [
                             "Л А мастер - 1.jpg",
                             "Л А мастер - 2.jpg",
@@ -406,18 +402,16 @@
             }
 
             function openModal(event) {
-                // Формируем HTML для наград
                 let rewardsHtml = '';
                 if (event.награды && event.награды.length > 0) {
                     event.награды.forEach(reward => {
                         let imagesHtml = reward.фото.map(src => {
-                            // Полный путь к изображению
                             const imgSrc = 'https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/' + encodeURIComponent(src);
                             return `<img src="${imgSrc}" alt="${reward.название}" onclick="openImageModal('${imgSrc}')" onerror="this.style.display='none'">`;
                         }).join('');
                         rewardsHtml += `
                             <div class="reward-block">
-                                <h3>${reward.название}</h3>
+                                <h3>Награда ${reward.название}</h3>
                                 <div class="reward-images">${imagesHtml}</div>
                             </div>
                         `;
