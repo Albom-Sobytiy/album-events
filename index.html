@@ -129,7 +129,6 @@
             transform: translateY(-3px);
         }
 
-        /* Основное модальное окно (для карточки) */
         .modal {
             display: none;
             position: fixed;
@@ -209,7 +208,6 @@
             margin-top: 0;
         }
 
-        /* Модальное окно для изображений (lightbox) */
         .image-modal {
             display: none;
             position: fixed;
@@ -269,7 +267,6 @@
 
     <main id="cards-container"></main>
 
-    <!-- Модальное окно для карточки -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -277,7 +274,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для изображений (lightbox) -->
     <div id="image-modal" class="image-modal">
         <div class="image-modal-content">
             <button class="close-img-btn">&times;</button>
@@ -286,26 +282,25 @@
     </div>
 
     <script>
-        const events = [
-            {
-                "id": 1,
-                "название": "Лига Авантюристов",
-                "тип": "на время",
-                "скриншоты": [
-                    "Лига Авантюр 6667.png"
-                ]
-            }
-        ];
+        // Глобальные функции для работы с модалкой изображений
+        function openImageModal(src) {
+            document.getElementById('image-modal-img').src = src;
+            document.getElementById('image-modal').style.display = 'flex';
+        }
 
+        function closeImageModal() {
+            document.getElementById('image-modal').style.display = 'none';
+            document.getElementById('image-modal-img').src = '';
+        }
+
+        // Основной код
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('cards-container');
             const modal = document.getElementById('modal');
             const modalBody = document.getElementById('modal-body');
             const closeBtn = document.querySelector('.close-btn');
-
-            const imageModal = document.getElementById('image-modal');
-            const imageModalImg = document.getElementById('image-modal-img');
             const closeImgBtn = document.querySelector('.close-img-btn');
+            const imageModal = document.getElementById('image-modal');
 
             let currentEvents = [...events];
 
@@ -344,16 +339,6 @@
 
             function closeModal() {
                 modal.style.display = 'none';
-            }
-
-            function openImageModal(src) {
-                imageModalImg.src = src;
-                imageModal.style.display = 'flex';
-            }
-
-            function closeImageModal() {
-                imageModal.style.display = 'none';
-                imageModalImg.src = '';
             }
 
             closeBtn.addEventListener('click', closeModal);
