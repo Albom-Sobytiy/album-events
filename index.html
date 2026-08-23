@@ -135,7 +135,14 @@
             white-space: nowrap;
         }
 
-        .card-graph-btn {
+        .card-btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .card-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -151,10 +158,9 @@
             white-space: nowrap;
             cursor: pointer;
             transition: background 0.2s;
-            margin-top: 2px;
         }
 
-        .card-graph-btn:hover {
+        .card-btn:hover {
             background: #c5a02e;
         }
 
@@ -214,7 +220,7 @@
         .modal-title-row {
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
             flex-wrap: wrap;
             margin-bottom: 6px;
         }
@@ -226,36 +232,17 @@
             margin: 0;
         }
 
-        .modal-boss-btn {
-            background: #d4af37;
-            color: #1a2a4a;
-            border: none;
-            padding: 8px 30px;
-            border-radius: 20px;
-            font-size: 15px;
+        .modal-subtitle {
+            font-size: 18px;
             font-weight: 700;
-            cursor: pointer;
-            text-align: center;
-            white-space: nowrap;
-            transition: 0.2s;
-            transform: translateY(3px);
-        }
-
-        .modal-boss-btn:hover {
-            background: #c5a02e;
-        }
-
-        .modal-type {
-            font-size: 16px;
-            font-weight: 500;
             color: #1a2a4a;
-            margin-top: 0;
+            margin-bottom: 10px;
         }
 
         .modal-divider {
             border: none;
             border-top: 2px solid rgba(212, 175, 55, 0.5);
-            margin: 15px 0 20px 0;
+            margin: 10px 0 20px 0;
         }
 
         .reward-block {
@@ -389,7 +376,7 @@
                 ],
                 "награды": [
                     {
-                        "название": "НОВИЧОК — награды",
+                        "название": "НОВИЧОК",
                         "фото": [
                             "novichok1.jpg",
                             "Л А новичок - 2.jpg",
@@ -397,7 +384,7 @@
                         ]
                     },
                     {
-                        "название": "ОПЫТНЫЙ — награды",
+                        "название": "ОПЫТНЫЙ",
                         "фото": [
                             "Л А опытный - 1.jpg",
                             "Л А опытный - 2.jpg",
@@ -406,7 +393,7 @@
                         ]
                     },
                     {
-                        "название": "МАСТЕР — награды",
+                        "название": "МАСТЕР",
                         "фото": [
                             "Л А мастер - 1.jpg",
                             "Л А мастер - 2.jpg",
@@ -415,7 +402,7 @@
                         ]
                     }
                 ],
-                "график": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/grafika.jpg"
+                "боссы": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg"
             }
         ];
 
@@ -441,7 +428,10 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            ${event.график ? `<button class="card-graph-btn" onclick="event.stopPropagation(); openImageModal('${event.график}')">График события</button>` : ''}
+                            <div class="card-btn-group">
+                                <button class="card-btn" onclick="event.stopPropagation(); openModal(event)">Награды</button>
+                                ${event.боссы ? `<button class="card-btn" onclick="event.stopPropagation(); openImageModal('${event.боссы}')">Боссы</button>` : ''}
+                            </div>
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
@@ -469,9 +459,8 @@
                 modalBody.innerHTML = `
                     <div class="modal-title-row">
                         <h2>${event.название}</h2>
-                        <button class="modal-boss-btn" onclick="openImageModal('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg')">БОССЫ</button>
                     </div>
-                    <div class="modal-type">${event.тип}</div>
+                    <div class="modal-subtitle">Награды</div>
                     <hr class="modal-divider">
                     ${rewardsHtml}
                 `;
