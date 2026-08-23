@@ -123,6 +123,11 @@
             font-weight: 700;
             text-align: center;
             min-width: 70px;
+            /* овал остаётся на месте, без смещения */
+        }
+
+        /* Только текст внутри овала поднимаем вверх */
+        .type span {
             transform: translateY(-6px);
         }
 
@@ -258,7 +263,7 @@
                         <div class="card-content">
                             <h3>${event.название}</h3>
                             <div class="type-wrapper">
-                                <span class="type">${event.тип}</span>
+                                <span class="type"><span>${event.тип}</span></span>
                             </div>
                         </div>
                     `;
