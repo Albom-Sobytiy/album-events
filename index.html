@@ -119,62 +119,46 @@
         }
 
         .card-content {
-            padding: 4px 15px 10px 8px;
+            padding: 8px 15px 15px 8px; /* увеличил верхний отступ для удлинения */
             background: #d4edda;
+            min-height: 110px; /* удлиняем карточку */
         }
 
         .card-content h3 {
             font-size: 26px;
             font-weight: 900;
             color: #1a2a4a;
-            margin-bottom: 0;
+            margin-bottom: 4px;
             letter-spacing: 0.3px;
             font-family: 'Segoe UI', 'Arial Black', 'Helvetica Neue', sans-serif;
             line-height: 1.1;
             white-space: nowrap;
         }
 
-        .type-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 4px;
-        }
-
-        /* Обе кнопки — одинаковый шрифт */
-        .type,
+        /* Кнопка «График события» — золотой овал, чёрный текст, увеличенный, слева */
         .card-graph-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            background: #d4af37;
+            color: #1a2a4a;
             font-family: 'Segoe UI', Arial, sans-serif;
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.3px;
             line-height: 1.2;
-            padding: 2px 14px;
-            border-radius: 16px;
+            padding: 6px 22px;
+            border-radius: 20px;
             border: none;
             text-align: center;
             white-space: nowrap;
-            min-width: 70px;
-            transition: background 0.2s;
             cursor: pointer;
-        }
-
-        .type {
-            background: #d4af37;
-            color: #1a2a4a;
-        }
-
-        .card-graph-btn {
-            background: #1a2a4a;
-            color: white;
+            transition: background 0.2s;
+            margin-top: 2px;
         }
 
         .card-graph-btn:hover {
-            background: #2a3a5a;
+            background: #c5a02e;
         }
 
         .modal {
@@ -385,7 +369,7 @@
             {
                 "id": 1,
                 "название": "Лига Авантюристов",
-                "тип": "на время",
+                "тип": "на время", // сохраняем для фильтра, но в карточке не показываем
                 "скриншоты": [
                     "Лига Авантюр 6667.png"
                 ],
@@ -443,10 +427,7 @@
                         </div>
                         <div class="card-content">
                             <h3>${event.название}</h3>
-                            <div class="type-wrapper">
-                                <span class="type">${event.тип}</span>
-                                ${event.график ? `<button class="card-graph-btn" onclick="event.stopPropagation(); openImageModal('${event.график}')">График события</button>` : ''}
-                            </div>
+                            ${event.график ? `<button class="card-graph-btn" onclick="event.stopPropagation(); openImageModal('${event.график}')">График события</button>` : ''}
                         </div>
                     `;
                     card.addEventListener('click', () => openModal(event));
