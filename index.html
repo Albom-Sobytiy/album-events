@@ -142,33 +142,35 @@
             margin-top: 4px;
         }
 
-        /* Золотистый овал «на время» — как кнопка графика, но золотой */
-        .type {
+        /* Обе кнопки — одинаковый шрифт */
+        .type,
+        .card-graph-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: #d4af37;
-            color: #1a2a4a;
+            font-family: 'Segoe UI', Arial, sans-serif;
             font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            line-height: 1.2;
             padding: 2px 14px;
             border-radius: 16px;
-            font-weight: 700;
+            border: none;
             text-align: center;
+            white-space: nowrap;
             min-width: 70px;
+            transition: background 0.2s;
+            cursor: pointer;
         }
 
-        /* Кнопка «График события» */
+        .type {
+            background: #d4af37;
+            color: #1a2a4a;
+        }
+
         .card-graph-btn {
             background: #1a2a4a;
             color: white;
-            border: none;
-            padding: 2px 14px;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-            white-space: nowrap;
         }
 
         .card-graph-btn:hover {
