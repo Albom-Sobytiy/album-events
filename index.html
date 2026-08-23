@@ -129,7 +129,6 @@
             transform: translateY(-3px);
         }
 
-        /* Модальное окно карточки */
         .modal {
             display: none;
             position: fixed;
@@ -168,7 +167,7 @@
             font-family: 'Segoe UI', Arial, sans-serif;
         }
 
-        #modal-body .modal-title-row {
+        .modal-title-row {
             display: flex;
             align-items: center;
             gap: 10px;
@@ -176,14 +175,14 @@
             margin-bottom: 6px;
         }
 
-        #modal-body .modal-title-row h2 {
+        .modal-title-row h2 {
             font-size: 28px;
             font-weight: 900;
             color: #1a2a4a;
             margin: 0;
         }
 
-        #modal-body .modal-boss-btn {
+        .modal-boss-btn {
             background: #d4af37;
             color: #1a2a4a;
             border: none;
@@ -198,18 +197,58 @@
             transform: translateY(3px);
         }
 
-        #modal-body .modal-boss-btn:hover {
+        .modal-boss-btn:hover {
             background: #c5a02e;
         }
 
-        #modal-body .modal-type {
+        .modal-type {
             font-size: 16px;
             font-weight: 500;
             color: #1a2a4a;
             margin-top: 0;
         }
 
-        /* Модальное окно для изображения боссов */
+        /* Разделительная линия */
+        .modal-divider {
+            border: none;
+            border-top: 2px solid #d4af37;
+            margin: 15px 0 20px 0;
+            opacity: 0.6;
+        }
+
+        /* Блоки наград */
+        .reward-block {
+            margin-bottom: 20px;
+        }
+
+        .reward-block h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a2a4a;
+            margin-bottom: 8px;
+        }
+
+        .reward-images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .reward-images img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            transition: transform 0.2s;
+        }
+
+        .reward-images img:hover {
+            transform: scale(1.05);
+        }
+
+        /* Модальное окно для изображений */
         .image-modal {
             display: none;
             position: fixed;
@@ -269,7 +308,6 @@
 
     <main id="cards-container"></main>
 
-    <!-- Модальное окно карточки -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -277,16 +315,15 @@
         </div>
     </div>
 
-    <!-- Модальное окно для изображения -->
     <div id="image-modal" class="image-modal">
         <div class="image-modal-content">
             <button class="close-img-btn">&times;</button>
-            <img id="image-modal-img" src="" alt="Боссы">
+            <img id="image-modal-img" src="" alt="Увеличенное изображение">
         </div>
     </div>
 
     <script>
-        // Глобальные функции для открытия/закрытия модалки изображения
+        // Глобальные функции для модалки изображений
         function openImageModal(src) {
             document.getElementById('image-modal-img').src = src;
             document.getElementById('image-modal').style.display = 'flex';
@@ -297,7 +334,6 @@
             document.getElementById('image-modal-img').src = '';
         }
 
-        // Данные событий
         const events = [
             {
                 "id": 1,
@@ -305,11 +341,38 @@
                 "тип": "на время",
                 "скриншоты": [
                     "Лига Авантюр 6667.png"
+                ],
+                "награды": [
+                    {
+                        "название": "Новичок",
+                        "фото": [
+                            "Л А новичок - 1.jpg",
+                            "Л А новичок - 2.jpg",
+                            "Л А новичок - 3.jpg"
+                        ]
+                    },
+                    {
+                        "название": "Опытный",
+                        "фото": [
+                            "Л А опытный - 1.jpg",
+                            "Л А опытный - 2.jpg",
+                            "Л А опытный - 3.jpg",
+                            "Л А опытный - 4.jpg"
+                        ]
+                    },
+                    {
+                        "название": "Мастер",
+                        "фото": [
+                            "Л А мастер - 1.jpg",
+                            "Л А мастер - 2.jpg",
+                            "Л А мастер - 3.jpg",
+                            "Л А мастер - 4.jpg"
+                        ]
+                    }
                 ]
             }
         ];
 
-        // Основной код
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('cards-container');
             const modal = document.getElementById('modal');
@@ -343,12 +406,32 @@
             }
 
             function openModal(event) {
+                // Формируем HTML для наград
+                let rewardsHtml = '';
+                if (event.награды && event.награды.length > 0) {
+                    event.награды.forEach(reward => {
+                        let imagesHtml = reward.фото.map(src => {
+                            // Полный путь к изображению
+                            const imgSrc = 'https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/' + encodeURIComponent(src);
+                            return `<img src="${imgSrc}" alt="${reward.название}" onclick="openImageModal('${imgSrc}')" onerror="this.style.display='none'">`;
+                        }).join('');
+                        rewardsHtml += `
+                            <div class="reward-block">
+                                <h3>${reward.название}</h3>
+                                <div class="reward-images">${imagesHtml}</div>
+                            </div>
+                        `;
+                    });
+                }
+
                 modalBody.innerHTML = `
                     <div class="modal-title-row">
                         <h2>${event.название}</h2>
                         <button class="modal-boss-btn" onclick="openImageModal('https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg')">БОССЫ</button>
                     </div>
                     <div class="modal-type">${event.тип}</div>
+                    <hr class="modal-divider">
+                    ${rewardsHtml}
                 `;
                 modal.style.display = 'block';
             }
