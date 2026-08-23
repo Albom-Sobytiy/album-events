@@ -95,7 +95,6 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             overflow: hidden;
             transition: transform 0.2s, box-shadow 0.2s;
-            /* убираем cursor: pointer, так как карточка больше не кликабельна */
         }
 
         .card:hover {
@@ -139,7 +138,7 @@
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
-            margin-top: 12px; /* кнопки опущены ниже */
+            margin-top: 12px;
         }
 
         .card-btn {
@@ -406,10 +405,45 @@
             }
         ];
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('cards-container');
+        // Глобальная функция для открытия модалки с наградами по id события
+        function openModalById(eventId) {
+            const event = events.find(e => e.id === eventId);
+            if (!event) return;
+            let rewardsHtml = '';
+            if (event.награды && event.награды.length > 0) {
+                event.награды.forEach(reward => {
+                    let imagesHtml = reward.фото.map(src => {
+                        const imgSrc = 'https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/' + encodeURIComponent(src);
+                        return `<img src="${imgSrc}" alt="${reward.название}" onclick="openImageModal('${imgSrc}')" onerror="this.style.display='none'">`;
+                    }).join('');
+                    rewardsHtml += `
+                        <div class="reward-block">
+                            <h3>${reward.название}</h3>
+                            <div class="reward-images">${imagesHtml}</div>
+                        </div>
+                    `;
+                });
+            }
             const modal = document.getElementById('modal');
             const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = `
+                <div class="modal-title-row">
+                    <h2>${event.название}</h2>
+                </div>
+                <div class="modal-subtitle">Награды</div>
+                <hr class="modal-divider">
+                ${rewardsHtml}
+            `;
+            modal.style.display = 'block';
+        }
+
+        // Закрытие модалки наград
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('cards-container');
             const closeBtn = document.querySelector('.close-btn');
             const closeImgBtn = document.querySelector('.close-img-btn');
             const imageModal = document.getElementById('image-modal');
@@ -429,54 +463,14 @@
                         <div class="card-content">
                             <h3>${event.название}</h3>
                             <div class="card-btn-group">
-                                <button class="card-btn" onclick="event.stopPropagation(); openModal(event)">Награды</button>
+                                <button class="card-btn" onclick="event.stopPropagation(); openModalById(${event.id})">Награды</button>
                                 ${event.боссы ? `<button class="card-btn" onclick="event.stopPropagation(); openImageModal('${event.боссы}')">Боссы</button>` : ''}
                             </div>
                         </div>
                     `;
-                    // Убираем обработчик клика на карточку
-                    // card.addEventListener('click', () => openModal(event));
                     container.appendChild(card);
                 });
             }
-
-            function openModal(event) {
-                let rewardsHtml = '';
-                if (event.награды && event.награды.length > 0) {
-                    event.награды.forEach(reward => {
-                        let imagesHtml = reward.фото.map(src => {
-                            const imgSrc = 'https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/' + encodeURIComponent(src);
-                            return `<img src="${imgSrc}" alt="${reward.название}" onclick="openImageModal('${imgSrc}')" onerror="this.style.display='none'">`;
-                        }).join('');
-                        rewardsHtml += `
-                            <div class="reward-block">
-                                <h3>${reward.название}</h3>
-                                <div class="reward-images">${imagesHtml}</div>
-                            </div>
-                        `;
-                    });
-                }
-
-                modalBody.innerHTML = `
-                    <div class="modal-title-row">
-                        <h2>${event.название}</h2>
-                    </div>
-                    <div class="modal-subtitle">Награды</div>
-                    <hr class="modal-divider">
-                    ${rewardsHtml}
-                `;
-                modal.style.display = 'block';
-            }
-
-            function closeModal() {
-                modal.style.display = 'none';
-            }
-
-            closeBtn.addEventListener('click', closeModal);
-            window.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
-
-            closeImgBtn.addEventListener('click', closeImageModal);
-            window.addEventListener('click', (e) => { if (e.target === imageModal) closeImageModal(); });
 
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -485,6 +479,13 @@
                     renderCards(this.dataset.type);
                 });
             });
+
+            // Обработчики закрытия
+            closeBtn.addEventListener('click', closeModal);
+            window.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+
+            closeImgBtn.addEventListener('click', closeImageModal);
+            window.addEventListener('click', (e) => { if (e.target === imageModal) closeImageModal(); });
 
             renderCards('all');
         });
