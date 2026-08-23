@@ -103,10 +103,10 @@
         }
 
         .card-img-wrapper {
-            background: #d4af37; /* золотая каёмка */
+            background: #d4af37;
             padding: 3px;
             background-clip: padding-box;
-            aspect-ratio: 600 / 400; /* точные пропорции 600x400 */
+            aspect-ratio: 600 / 400;
             width: 100%;
         }
 
@@ -114,9 +114,9 @@
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* если фото 600х400 — заполнит ровно */
+            object-fit: cover;
             border-radius: 10px 10px 0 0;
-            background: #d4edda; /* заливка, если фото не загрузится */
+            background: #d4edda;
         }
 
         .card-content {
@@ -194,17 +194,20 @@
             position: absolute;
             right: 20px;
             top: 15px;
-            font-size: 28px;
+            font-size: 32px;
             cursor: pointer;
             color: #1a2a4a;
             background: rgba(255,255,255,0.8);
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: background 0.2s;
+            z-index: 10;
+            border: none;
+            line-height: 1;
         }
 
         .close-btn:hover {
@@ -311,18 +314,27 @@
 
         .image-modal .close-img-btn {
             position: absolute;
-            top: -40px;
-            right: -10px;
-            font-size: 40px;
-            color: white;
+            top: 20px;
+            right: 20px;
+            font-size: 32px;
             cursor: pointer;
-            background: none;
+            color: white;
+            background: rgba(0,0,0,0.5);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 10;
             border: none;
-            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            line-height: 1;
         }
 
         .image-modal .close-img-btn:hover {
-            color: #ccc;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
         }
     </style>
 </head>
@@ -342,16 +354,18 @@
 
     <main id="cards-container"></main>
 
+    <!-- Модальное окно наград -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close-btn">&times;</span>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
             <div id="modal-body"></div>
         </div>
     </div>
 
+    <!-- Модальное окно для картинок (боссы, календарь) -->
     <div id="image-modal" class="image-modal">
         <div class="image-modal-content">
-            <button class="close-img-btn">&times;</button>
+            <button class="close-img-btn" onclick="closeImageModal()">&times;</button>
             <img id="image-modal-img" src="" alt="Увеличенное изображение">
         </div>
     </div>
@@ -444,7 +458,6 @@
 
         document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('cards-container');
-            const closeBtn = document.querySelector('.close-btn');
             const closeImgBtn = document.querySelector('.close-img-btn');
             const imageModal = document.getElementById('image-modal');
 
@@ -480,11 +493,20 @@
                 });
             });
 
-            closeBtn.addEventListener('click', closeModal);
-            window.addEventListener('click', (e) => { if (e.target === document.getElementById('modal')) closeModal(); });
+            // Закрытие модалки наград по клику на фон
+            window.addEventListener('click', function(e) {
+                const modal = document.getElementById('modal');
+                if (e.target === modal) closeModal();
+            });
 
+            // Закрытие модалки картинок по клику на фон
+            window.addEventListener('click', function(e) {
+                const imageModal = document.getElementById('image-modal');
+                if (e.target === imageModal) closeImageModal();
+            });
+
+            // Крестик для картинок
             closeImgBtn.addEventListener('click', closeImageModal);
-            window.addEventListener('click', (e) => { if (e.target === imageModal) closeImageModal(); });
 
             renderCards('all');
         });
