@@ -142,6 +142,7 @@
             margin-top: 4px;
         }
 
+        /* Золотистый овал «на время» — как кнопка графика, но золотой */
         .type {
             display: inline-flex;
             align-items: center;
@@ -149,17 +150,14 @@
             background: #d4af37;
             color: #1a2a4a;
             font-size: 13px;
-            padding: 2px 16px;
+            padding: 2px 14px;
             border-radius: 16px;
             font-weight: 700;
             text-align: center;
             min-width: 70px;
         }
 
-        .type span {
-            transform: translateY(-3px);
-        }
-
+        /* Кнопка «График события» */
         .card-graph-btn {
             background: #1a2a4a;
             color: white;
@@ -444,7 +442,7 @@
                         <div class="card-content">
                             <h3>${event.название}</h3>
                             <div class="type-wrapper">
-                                <span class="type"><span>${event.тип}</span></span>
+                                <span class="type">${event.тип}</span>
                                 ${event.график ? `<button class="card-graph-btn" onclick="event.stopPropagation(); openImageModal('${event.график}')">График события</button>` : ''}
                             </div>
                         </div>
