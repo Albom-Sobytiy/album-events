@@ -22,7 +22,6 @@
 
     <main id="cards-container"></main>
 
-    <!-- Модальное окно наград -->
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
@@ -30,7 +29,6 @@
         </div>
     </div>
 
-    <!-- Модальное окно для картинок -->
     <div id="image-modal" class="image-modal">
         <div class="image-modal-content">
             <button class="close-img-btn" onclick="closeImageModal()">&times;</button>
@@ -39,138 +37,14 @@
     </div>
 
     <script>
-        // Пока все функции и данные остаются здесь
-        function openImageModal(src) {
-            document.getElementById('image-modal-img').src = src;
-            document.getElementById('image-modal').style.display = 'flex';
-        }
-
-        function closeImageModal() {
-            document.getElementById('image-modal').style.display = 'none';
-            document.getElementById('image-modal-img').src = '';
-        }
-
-        const events = [
-            {
-                "id": 1,
-                "название": "Лига Авантюристов",
-                "тип": "на время",
-                "скриншоты": ["Лига Авантюр 6667.png"],
-                "награды": [
-                    {
-                        "название": "НОВИЧОК",
-                        "фото": ["novichok1.jpg", "Л А новичок - 2.jpg", "Л А новичок - 3.jpg"]
-                    },
-                    {
-                        "название": "ОПЫТНЫЙ",
-                        "фото": ["Л А опытный - 1.jpg", "Л А опытный - 2.jpg", "Л А опытный - 3.jpg", "Л А опытный - 4.jpg"]
-                    },
-                    {
-                        "название": "МАСТЕР",
-                        "фото": ["Л А мастер - 1.jpg", "Л А мастер - 2.jpg", "Л А мастер - 3.jpg", "master4.jpg"]
-                    }
-                ],
-                "боссы": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/result_БОССЫ%20Лига%20Авантюристов.jpeg"
-            }
-        ];
-
-        function openModalById(eventId) {
-            const event = events.find(e => e.id === eventId);
-            if (!event) return;
-            let rewardsHtml = '';
-            if (event.награды && event.награды.length > 0) {
-                event.награды.forEach(reward => {
-                    let imagesHtml = reward.фото.map(src => {
-                        const imgSrc = 'https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/' + encodeURIComponent(src);
-                        return `<img src="${imgSrc}" alt="${reward.название}" onclick="openImageModal('${imgSrc}')" onerror="this.style.display='none'">`;
-                    }).join('');
-                    rewardsHtml += `
-                        <div class="reward-block">
-                            <h3>${reward.название}</h3>
-                            <div class="reward-images">${imagesHtml}</div>
-                        </div>
-                    `;
-                });
-            }
-            const modal = document.getElementById('modal');
-            const modalBody = document.getElementById('modal-body');
-            modalBody.innerHTML = `
-                <div class="modal-title-row">
-                    <h2>${event.название}</h2>
-                </div>
-                <div class="modal-subtitle">Награды</div>
-                <hr class="modal-divider">
-                ${rewardsHtml}
-            `;
-            modal.style.display = 'block';
-        }
-
-        function closeModal() {
-            document.getElementById('modal').style.display = 'none';
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            const container = document.getElementById('cards-container');
-            const closeImgBtn = document.querySelector('.close-img-btn');
-            const imageModal = document.getElementById('image-modal');
-
-            let currentEvents = [...events];
-
-            function renderCards(filterType = 'all') {
-                container.innerHTML = '';
-                const filtered = filterType === 'all' ? currentEvents : currentEvents.filter(e => e.тип === filterType);
-                filtered.forEach(event => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.innerHTML = `
-                        <div class="card-img-wrapper">
-                            <img src="${event.скриншоты[0]}" alt="${event.название}" onerror="this.src='https://via.placeholder.com/600x400/cccccc/1a2a4a?text=Нет+скрина'">
-                        </div>
-                        <div class="card-content">
-                            <h3>${event.название}</h3>
-                            <div class="card-btn-group">
-                                <button class="card-btn" onclick="event.stopPropagation(); openModalById(${event.id})">Награды</button>
-                                ${event.боссы ? `<button class="card-btn" onclick="event.stopPropagation(); openImageModal('${event.боссы}')">Боссы</button>` : ''}
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    renderCards(this.dataset.type);
-                });
-            });
-
-            window.addEventListener('click', function(e) {
-                const modal = document.getElementById('modal');
-                if (e.target === modal) closeModal();
-            });
-
-            window.addEventListener('click', function(e) {
-                const imageModal = document.getElementById('image-modal');
-                if (e.target === imageModal) closeImageModal();
-            });
-
-            closeImgBtn.addEventListener('click', closeImageModal);
-
-            renderCards('all');
-        });
-        <script>
-    let events = [];
-</script>
-
-<script src="events/event1.js"></script>
-<script src="events/event2.js"></script>
-<script src="events/event3.js"></script>
-<script src="events/event4.js"></script>
-<script src="events/event5.js"></script>
-
-<script src="script.js"></script>
-
+        // Создаём глобальный массив для событий
+        window.events = [];
+    </script>
+    <script src="events/event1.js"></script>
+    <script src="events/event2.js"></script>
+    <script src="events/event3.js"></script>
+    <script src="events/event4.js"></script>
+    <script src="events/event5.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
