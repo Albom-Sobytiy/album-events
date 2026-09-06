@@ -2,7 +2,8 @@ window.events.push({
     "id": 1,
     "название": "Лига Авантюристов",
     "тип": "на время",
-    "скриншоты": ["Лига Авантюр 6667.png"],
+    "скриншоты": ["Лига авантюр 77.png"],
+    "фон": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/%D0%9B%D0%B8%D0%B3%D0%B0%20%D0%90%D0%B2%20%D1%84%D0%BE%D0%BD.png",
     "награды": [
         {
             "название": "НОВИЧОК",
