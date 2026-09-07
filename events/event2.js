@@ -2,8 +2,8 @@ window.events.push({
     "id": 2,
     "название": "Остров сокровищ",
     "тип": "на время",
-    "скриншоты": ["Заставка Остров сокровищ 3.png"],
-    "фон": "https://raw.githubusercontent.com/Albom-Sobytiy/album-events/main/%D0%9E%D1%81%D1%82%D1%80%D0%BE%D0%B2%20%D1%81%D0%BE%D0%BA%D1%80%D0%BE%D0%B2%D0%B8%D1%89%20%D1%84%D0%BE%D0%BD%20%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B4%202.png",
+    "скриншоты": ["ostrov-sokrovishch/Заставка Остров сокровищ 3.png"],
+    "фон": "ostrov-sokrovishch/Остров сокровищ фон наград 2.png",
     "награды": [
         {
             "название": "НОВИЧОК",
