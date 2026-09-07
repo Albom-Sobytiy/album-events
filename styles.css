@@ -114,7 +114,7 @@ h1 {
 
 .card-content {
     padding: 8px 15px 15px 8px;
-    background: #d4edda;
+    background: linear-gradient(to bottom, #d4edda 0%, #b8d9c0 100%);
     min-height: 110px;
 }
 
