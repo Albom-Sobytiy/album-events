@@ -112,9 +112,10 @@ h1 {
     background: #d4edda;
 }
 
+/* Затемнение низа карточки — более насыщенное */
 .card-content {
     padding: 8px 15px 15px 8px;
-    background: linear-gradient(to bottom, #d4edda 0%, #b8d9c0 100%);
+    background: linear-gradient(to bottom, #d4edda 0%, #b8d9c0 60%, #8fb89a 100%);
     min-height: 110px;
 }
 
